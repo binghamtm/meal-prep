@@ -15,5 +15,21 @@ export async function loadTemplate(parentElement, templatePath) {
     parentElement.innerHTML = headerTemplate;
 }
 
+export function displayPantry(pantryContents, parentElement) {
+    const listedPantryContentsString = [];
+    pantryContents.forEach(content => {
+        content = `<li>Item: ${pantryContents["item"]} Quantity ${pantryContents["quantity"]}</li>`;
+        listedPantryContentsString.push(content);
+    });
+
+    return listedPantryContentsString; 
+}
+export function getLocalStorage(key) {
+    return JSON.parse(localStorage(key));
+}
+export function setLocalStorage(key, value) {
+    localStorage.setItem(key, JSON.stringify(value))
+}
+
 
 
