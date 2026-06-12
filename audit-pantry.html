@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/audit-pantry.js" type="module"></script>
+    <title>Audit</title>
+</head>
+
+<body>
+    <header id="main-header"></header>
+    <main>
+        <h1>Pantry Audit</h1>
+        <button id="add-new-item-button">Add New Item</button>
+        <form id="add-new-item-form" class="hidden">
+            <label for="item">Item</label>
+            <input type="text" id="item" name="item" required>
+            <label for="item">Quantity</label>
+            <input type="text" id="quantity" name="quantity" required>
+            <button type="submit">Add To Pantry</button>
+        </form>
+        <h2>Add or Remove Pantry Contents</h2>
+        <div id="pantry-contents"></div>
+    </main>
+    <footer id="main-footer"></footer>
+</body>
+
+</html>
