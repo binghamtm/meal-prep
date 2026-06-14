@@ -49,6 +49,7 @@ function addItemToPantry(form) {
     pantry.push(newItem);
     setLocalStorage('pantry', pantry);
     displayPantry(document.getElementById("pantry-contents"), true);
+    form.reset();
 }
 
 function removeQuantityFromPantry(productName) {
