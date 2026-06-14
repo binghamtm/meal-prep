@@ -15,21 +15,44 @@ export async function loadTemplate(parentElement, templatePath) {
     parentElement.innerHTML = headerTemplate;
 }
 
-export function displayPantry(pantryContents, parentElement) {
-    const listedPantryContentsString = [];
-    pantryContents.forEach(content => {
-        content = `<li>Item: ${pantryContents["item"]} Quantity ${pantryContents["quantity"]}</li>`;
-        listedPantryContentsString.push(content);
-    });
 
-    return listedPantryContentsString; 
-}
 export function getLocalStorage(key) {
-    return JSON.parse(localStorage(key));
+    return JSON.parse(localStorage.getItem(key));
 }
 export function setLocalStorage(key, value) {
-    localStorage.setItem(key, JSON.stringify(value))
+    localStorage.setItem(key, JSON.stringify(value));
 }
 
+export function displayPantry(parentElement, isEditing) {
+    
+    if (isEditing) {
+        if (localStorage.getItem("pantry")) {
+            let listedPantryContentsHTMLString = "";
+            const pantry = getLocalStorage("pantry");
+            pantry.forEach(product => {
+                const productHTML = `<li>Item: ${product.itemName}, Quantity: ${product.quantity}, Expiration Date: ${product.expriationDate} <button id="add${product.itemName}" data-id="${product.itemName}" data-add-or-remove="add">Add</button> <button id="remove${product.itemName}" data-id="${product.itemName}" data-add-or-remove="remove">Remove</button></li>`;
+                listedPantryContentsHTMLString += productHTML;
+            });
+            parentElement.innerHTML = listedPantryContentsHTMLString;
+        }
+        else {
+            parentElement.innerHTML = `<p>There is Nothing in your Pantry`;
+        }
+    }
+    else {
+        if (localStorage.getItem("pantry")) {
+            let listedPantryContentsHTMLString = "";
+            const pantry = getLocalStorage("pantry");
+            pantry.forEach(product => {
+                const productHTML = `<li>Item: ${product.itemName}, Quantity: ${product.quantity}, Expiration Date: ${product.expriationDate} </li>`;
+                listedPantryContentsHTMLString += productHTML;
+            });
+            parentElement.innerHTML = listedPantryContentsHTMLString;
+        }
+        else {
+            parentElement.innerHTML = `<p>There is Nothing in your Pantry`;
+        }
+    }    
+}
 
 
