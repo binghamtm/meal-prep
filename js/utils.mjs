@@ -26,11 +26,11 @@ export function setLocalStorage(key, value) {
 export function displayPantry(parentElement, isEditing) {
     
     if (isEditing) {
-        if (localStorage.getItem("pantry")) {
+        if (localStorage.getItem("pantry") && localStorage.getItem("pantry").length > 0) {
             let listedPantryContentsHTMLString = "";
             const pantry = getLocalStorage("pantry");
             pantry.forEach(product => {
-                const productHTML = `<li>Item: ${product.itemName}, Quantity: ${product.quantity}, Expiration Date: ${product.expriationDate} <button id="add${product.itemName}" data-id="${product.itemName}" data-add-or-remove="add">Add</button> <button id="remove${product.itemName}" data-id="${product.itemName}" data-add-or-remove="remove">Remove</button></li>`;
+                const productHTML = `<li>Item: ${product.itemName}, Quantity: ${product.quantity} <button id="add${product.itemName}" data-id="${product.itemName}" data-add-or-remove="add">Add</button> <button id="remove${product.itemName}" data-id="${product.itemName}" data-add-or-remove="remove">Remove</button></li>`;
                 listedPantryContentsHTMLString += productHTML;
             });
             parentElement.innerHTML = listedPantryContentsHTMLString;
@@ -44,7 +44,7 @@ export function displayPantry(parentElement, isEditing) {
             let listedPantryContentsHTMLString = "";
             const pantry = getLocalStorage("pantry");
             pantry.forEach(product => {
-                const productHTML = `<li>Item: ${product.itemName}, Quantity: ${product.quantity}, Expiration Date: ${product.expriationDate} </li>`;
+                const productHTML = `<li>Item: ${product.itemName}, Quantity: ${product.quantity}</li>`;
                 listedPantryContentsHTMLString += productHTML;
             });
             parentElement.innerHTML = listedPantryContentsHTMLString;
@@ -53,6 +53,21 @@ export function displayPantry(parentElement, isEditing) {
             parentElement.innerHTML = `<p>There is Nothing in your Pantry`;
         }
     }    
+}
+
+export function displaySavedFoods(parentElement) {
+    if (localStorage.getItem("savedFoods")) {
+        let foodListHTMLString = "";
+        const savedFoods = getLocalStorage("savedFoods");
+        savedFoods.forEach(product => {
+            const productHTML = `<li>Item: ${product.itemName}  <button id="food${product.itemName}" data-id="food${product.itemName}">Delete</button></li>`;
+            foodListHTMLString += productHTML;
+        });
+        parentElement.innerHTML = foodListHTMLString;
+    }
+    else {
+        parentElement.innerHTML = `<p>There is Nothing in your food list`;
+    }
 }
 
 

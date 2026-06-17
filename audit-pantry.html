@@ -13,18 +13,27 @@
     <header id="main-header"></header>
     <main>
         <h1>Pantry Audit</h1>
-        <button id="add-new-item-button">Add New Item</button>
-        <form id="add-new-item-form" class="hidden">
+        <button id="add-new-pantry-item-button">Add New Pantry Item</button>
+        <button id="add-new-food-item-button">Upload New Food Item</button>
+        <form id="add-new-pantry-item-form" class="hidden">
             <label for="item">Item</label>
-            <input type="text" id="item" name="item" required>
+            <select id="item" name="item" required></select>
             <label for="quantity">Quantity</label>
-            <input type="text" id="quantity" name="quantity" required>
-            <label for="expiration-date">Expiration Date</label>
-            <input type="text" id="expiration-date" name="expiration-date" required>
-            <input type="submit" title="Add To Pantry" id="add-to-pantry-submission">
+            <select id="quantity" name="quantity"></select>
+            <input type="submit" title="Add To Pantry" id="add-to-pantry-submission" value="Add Item to Pantry"> 
+        </form>
+        <form id="add-new-food-item-form" class="hidden">
+            <label for="food-item">Item</label>
+            <input type="text" id="food-item" name="food-item" required>
+            
+            <!--<label for="expiration-date">Expiration Date</label>
+                    <input type="text" id="expiration-date" name="expiration-date" required>-->
+            <input type="submit" title="Add To Food List" id="add-to-food-list-submission" value="Add Food">
         </form>
         <h2>Add or Remove Pantry Contents</h2>
         <div id="pantry-contents"></div>
+        <h2>food items</h2>
+        <div id="saved-foods-list"></div>
     </main>
     <footer id="main-footer"></footer>
 </body>
