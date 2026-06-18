@@ -69,14 +69,20 @@ displayPantry(document.getElementById("pantry-contents"), true);
 displaySavedFoods(document.getElementById("saved-foods-list"));
 
 function addItemToFoodList(form) {
-    if (localStorage.getItem("savedFoods") === null) {
-        setLocalStorage("savedFoods", []);
-    }
+    
     const formData = new FormData(form);
     const itemName = formData.get("food-item");
-
+    console.log(itemName)
+    if (itemName === '') {
+        alert("Please Input a Value");
+        return;
+    }
     const newItem = new Product(itemName);
     const savedFoods = getLocalStorage("savedFoods");
+    if (savedFoods.some(food => food.itemName === itemName)) {
+        alert(`${itemName} is already in Food List`);
+        return;
+    }
     savedFoods.push(newItem);
     setLocalStorage('savedFoods', savedFoods);
     displaySavedFoods(document.getElementById("saved-foods-list"), true);
@@ -99,7 +105,7 @@ function addItemToPantry(form) {
 
     const newItem = new Product(itemName, quantity);
     const pantry = getLocalStorage("pantry");
-    if (pantry.includes(itemName)) {
+    if (pantry.some(food => food.itemName === itemName)) {
         alert(`${itemName} is already in pantry`);
         return;
     }
@@ -160,7 +166,4 @@ function removeFoodFromSavedFoods(productName) {
     setLocalStorage("savedFoods", newSavedFoods);
     displaySavedFoods(document.getElementById("saved-foods-list"));
 }
-function isAlreadyAdded(array) {
-    array = getLocalStorage(array);
-    
-}
+

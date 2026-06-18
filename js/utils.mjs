@@ -55,7 +55,11 @@ export function displayPantry(parentElement, isEditing) {
     }    
 }
 
-export function displaySavedFoods(parentElement) {
+export async function displaySavedFoods(parentElement) {
+    if (localStorage.getItem("savedFoods") === null) {
+        const starterFoods = await loadStarterFoods();
+        setLocalStorage("savedFoods", starterFoods);
+    }
     if (localStorage.getItem("savedFoods")) {
         let foodListHTMLString = "";
         const savedFoods = getLocalStorage("savedFoods");
@@ -69,5 +73,27 @@ export function displaySavedFoods(parentElement) {
         parentElement.innerHTML = `<p>There is Nothing in your food list`;
     }
 }
+export async function loadStarterFoods() {
+    const response = await fetch("../json/defaultFoods.json");
+    const defaultFoods = await response.json();
+    console.log(defaultFoods);
+    return defaultFoods;
+}
 
-
+export function displayRecipes(parentElement) {
+    if (localStorage.getItem("recipeList")) {
+        let listedRecipesHTMLString = "";
+        const recipes = getLocalStorage("recipeList");
+        recipes.forEach(recipe => {
+            let recipeHTML = `<li>Item: ${recipe.recipeName}, Ingredients: `
+            for (let i = 0; i < recipe.ingredients.length; i++) {
+                recipeHTML += `${recipe.ingredients[i]}, `;    
+            };
+            listedRecipesHTMLString += recipeHTML;
+        });
+        parentElement.innerHTML = listedRecipesHTMLString;
+    }
+    else {
+        parentElement.innerHTML = `<p>You have no saved Recipes</p>`;
+    }
+}

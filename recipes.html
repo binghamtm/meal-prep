@@ -4,14 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/style.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    </head>
     <script src="js/recipes.js" type="module"></script>
     <title>Recipes</title>
 </head>
 <body>
     <header id="main-header"></header>
-    <main>
-        
+    <main class="container text-center">
+        <h1>Recipe of the day</h1>
+        <div id="random-recipe-container"></div>
+        <h1>My Recipes</h1>
+        <p>please be sure to add ingredients in the "food" section in the Pantry Manager so they appear below</p>
+        <button id="new-recipe-button">Add New Recipe</button>
+        <form id="new-recipe-form" class="hidden">
+            <label for="recipe-title" class="form-label">Recipe Name</label>
+            <input type="text" id="recipe-title" class="form-control" name="recipe-title">
+            <label for="number-of-ingredients" class="form-label">Number of Ingredients in Recipe</label>
+            <select id="number-of-ingredients" class="form-control" name="number-of-ingredients"></select>
+            <div id="ingredients-inputs"></div>
+            <input type="submit" id="add-recipe-submission-button" class="form-control" value="Add Recipe">
+        </form>
+        <ul id="recipe-container" class="list-unstyled"></ul>
     </main>
-    <footer id="main-footer"></footer>
+    <footer id="main-footer" class="container text-center"></footer>
 </body>
 </html>
