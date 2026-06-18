@@ -39,7 +39,7 @@ addToFoodListSubmissionButton.addEventListener("click", (event) => {
 
 
 const pantryContentsContainer = document.getElementById("pantry-contents");
-pantryContentsContainer.addEventListener("click", () => {
+pantryContentsContainer.addEventListener("click", (event) => {
     const button = event.target.closest("button");
     if (!button) return;
 
@@ -52,12 +52,13 @@ pantryContentsContainer.addEventListener("click", () => {
 });
 
 const savedFoodsContentsContainer = document.getElementById("saved-foods-list");
-savedFoodsContentsContainer.addEventListener("click", () => {
+savedFoodsContentsContainer.addEventListener("click", (event) => {
     const button = event.target.closest("button");
     if (!button) return;
     removeFoodFromSavedFoods(button.dataset.id);
-    
 });
+
+await displaySavedFoods(document.getElementById("saved-foods-list"));
 
 //displays options in "add to pantry" form
 displayPantryAdditionOptions();
@@ -65,11 +66,7 @@ displayPantryAdditionOptions();
 //displays pantry items to be added or removed
 displayPantry(document.getElementById("pantry-contents"), true);
 
-// displays saved foods
-displaySavedFoods(document.getElementById("saved-foods-list"));
-
-function addItemToFoodList(form) {
-    
+async function addItemToFoodList(form) {
     const formData = new FormData(form);
     const itemName = formData.get("food-item");
     console.log(itemName)
@@ -78,14 +75,15 @@ function addItemToFoodList(form) {
         return;
     }
     const newItem = new Product(itemName);
-    const savedFoods = getLocalStorage("savedFoods");
+    const savedFoods = getLocalStorage("savedFoods") ?? [];
     if (savedFoods.some(food => food.itemName === itemName)) {
         alert(`${itemName} is already in Food List`);
         return;
     }
     savedFoods.push(newItem);
     setLocalStorage('savedFoods', savedFoods);
-    displaySavedFoods(document.getElementById("saved-foods-list"), true);
+    await displaySavedFoods(document.getElementById("saved-foods-list"));
+    displayPantryAdditionOptions();
     form.reset();
 }
 //adds items to food list
@@ -160,10 +158,11 @@ function displayPantryAdditionOptions() {
     addtoPantryQuantitySelectOptions.innerHTML = quantityOptionsHTMLString;
 }
 function removeFoodFromSavedFoods(productName) {
-    const savedFoods = getLocalStorage("savedFoods");
+    const savedFoods = getLocalStorage("savedFoods") ?? [];
     const actualProductName = productName.slice(4);
     const newSavedFoods = savedFoods.filter(item => item.itemName !== actualProductName);
     setLocalStorage("savedFoods", newSavedFoods);
     displaySavedFoods(document.getElementById("saved-foods-list"));
+    displayPantryAdditionOptions();
 }
 

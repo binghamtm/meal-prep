@@ -74,7 +74,7 @@ export async function displaySavedFoods(parentElement) {
     }
 }
 export async function loadStarterFoods() {
-    const response = await fetch("../json/defaultFoods.json");
+    const response = await fetch(new URL("../json/defaultFoods.json", import.meta.url));
     const defaultFoods = await response.json();
     console.log(defaultFoods);
     return defaultFoods;
